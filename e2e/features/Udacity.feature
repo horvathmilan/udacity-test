@@ -33,7 +33,7 @@ Scenario Outline: 3. The card details, dropdown filter and filter fields should 
   Given the Udacity course page is opened
 
    When the "Select Program Details" dropdown is clicked
-    And the <level> skill level is selected
+    And the "<level>" skill level is selected
    Then the selected filters field should contain the following filters:
         |<level>|
     And the <level> course level logo should be visible for all cards
@@ -50,7 +50,7 @@ Scenario: 4. The LEARN MORE button and short description should be visible
    When the text "android" is typed into the search bar
     And the "Android Basics by Google" card's details expander is opened
    Then the "Android Basics by Google" card's short description should be visible
-    And the "Android Basics by Google" card's short description is not an empty string
+    And the "Android Basics by Google" card's short description should not be an empty string
     And the "Android Basics by Google" card's 'LEARN MORE' button should be visible
 
 Scenario Outline: 5. Alternative course page opening should work correctly

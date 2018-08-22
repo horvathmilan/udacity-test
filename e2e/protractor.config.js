@@ -21,6 +21,8 @@ exports.config = {
     chromeDriver: path.join(requireIt.directory('protractor'), 'node_modules', 'webdriver-manager', 'selenium', 'chromedriver_2.41' + (os.platform() === 'win32' ? '.exe' : '')),
     onPrepare: function () {
         global.GLOBAL_TIMEOUT = GLOBAL_TIMEOUT;
+        global.pageLoadTime = 5000;
+        global.extraWait = 3000;
         global.ec = protractor.ExpectedConditions;
 
         const chai = require('chai');
@@ -35,7 +37,7 @@ exports.config = {
             return array;
         };
 
-        global.makeStringArray = array =>{
+        global.deleteCommas = array =>{
             let newArray = [];
             let string;
             if (array.length === 1){

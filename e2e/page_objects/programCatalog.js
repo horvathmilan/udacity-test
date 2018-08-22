@@ -42,7 +42,7 @@ class ProgramCatalog {
         browser.get('https://eu.udacity.com/courses/all');
         this.waitForLogo();
         this.bannerCloseButton.click();
-        return browser.sleep(5000);
+        return browser.sleep(pageLoadTime);
     }
 
     isLogoVisible() {
@@ -69,7 +69,7 @@ class ProgramCatalog {
 
     typeIntoSearchBar(text) {
         this.searchBar.sendKeys(text);
-        return browser.sleep(3000);
+        return browser.sleep(extraWait);
     }
 
     clearSearchBar() {
@@ -77,7 +77,7 @@ class ProgramCatalog {
         return this.searchBar.sendKeys(protractor.Key.BACK_SPACE);
     }
 
-    allSelectedFilters() {
+    getAllSelectedFiltersText() {
         return this.allSelectedFiltersInTheField.getText();
     }
 
@@ -110,7 +110,7 @@ class ProgramCatalog {
 
     clickOnFilter(text) {
         this.filterOption(text).click();
-        return browser.sleep(3000);
+        return browser.sleep(extraWait);
     }
 
     areCourseLevelLogosCorrect(level) {
@@ -198,15 +198,11 @@ class ProgramCatalog {
 
     deleteFilter(text) {
         this.filtersCloser(text).click();
-        return browser.sleep(3000);
+        return browser.sleep(extraWait);
     }
 
     isResultsLabelVisible() {
         return this.resultsLabel.isVisible();
-    }
-
-    selectSkill(text) {
-        return this.filterOption(text).click();
     }
 
     getSelectedItemWrapper() {
@@ -229,7 +225,7 @@ class ProgramCatalog {
                 return this.skillsCoveredSection(card).getText();
             })).then(result => {
                 return result.every(element => {
-                    let array = makeStringArray(element);
+                    let array = deleteCommas(element);
                     for (let i=0; i<filters.length; i++){
                         if (array.indexOf(filters[i]) > -1){
                             return true;

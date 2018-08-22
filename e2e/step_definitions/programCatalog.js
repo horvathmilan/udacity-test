@@ -25,7 +25,7 @@ defineSupportCode(({
 
     When(/^the search bar is cleared$/, () => {
         ProgramCatalog.clearSearchBar();
-        return browser.sleep(5000);
+        return browser.sleep(pageLoadTime);
     });
 
     When(/^the "([^"].*)" dropdown is clicked$/, text => {
@@ -34,6 +34,25 @@ defineSupportCode(({
 
     When(/^the X button is clicked for the "([^"].*)" filter$/, text => {
         return ProgramCatalog.deleteFilter(text);
+    });
+
+    When(/^the text "([^"].*)" is typed into the search bar$/, text => {
+        return ProgramCatalog.typeIntoSearchBar(text);
+    });
+
+    When(/^the "([^"].*)" skill (?:level )?is selected$/, text => {
+        return ProgramCatalog.clickOnFilter(text);
+    });
+
+    When(/^the "([^"].*)" card's (title|image|LEARN MORE button) is clicked$/, (text, click) => {
+        switch(click) {
+            case "title": 
+                return ProgramCatalog.clickOnCardTitle(text);
+            case "image":
+                return ProgramCatalog.clickOnCardImage(text);
+            case "LEARN MORE button":
+                return ProgramCatalog.clickOnCardLearnMoreButton(text);
+        }
     });
 
     Then(/^the Udacity logo should be (visible|hidden)$/, visibility => {
@@ -48,12 +67,7 @@ defineSupportCode(({
         return expect(ProgramCatalog.getPlaceholderText()).to.eventually.equal(text);
     });
 
-    Then(/^the text "([^"].*)" is typed into the search bar$/, text => {
-        return ProgramCatalog.typeIntoSearchBar(text);
-    });
-
     Then(/^the course count should (be less than|equal to) the remembered course count$/, condition => {
-        browser.sleep(2000);
         switch (condition) {
             case "be less than":
                 return expect(ProgramCatalog.countCourses()).to.be.eventually.at.most(ProgramCatalog.courseCount);
@@ -66,10 +80,6 @@ defineSupportCode(({
         return ProgramCatalog.countCourses().then(courseCount => {
             return expect(ProgramCatalog.getResultCounter()).to.eventually.equal(courseCount);
         });
-    });
-
-    Then(/^the ([^"].*) skill level is selected$/, text => {
-        return ProgramCatalog.clickOnFilter(text);
     });
 
     Then(/^the ([^"].*) course level logo should be visible for all cards$/, text => {
@@ -88,23 +98,12 @@ defineSupportCode(({
         return expect(ProgramCatalog.isShortDescriptionVisible(text)).to.eventually.equal(visibility === "visible");
     });
 
-    Then(/^the "([^"].*)" card's short description is not an empty string$/, text => {
+    Then(/^the "([^"].*)" card's short description should not be an empty string$/, text => {
         return expect(ProgramCatalog.isShortDescriptionNotEmpty(text)).to.eventually.be.true;
     });
 
     Then(/^the "([^"].*)" card's 'LEARN MORE' button should be (visible|hidden)$/, (text, visibility) => {
         return expect(ProgramCatalog.isLearnMoreButtonVisible(text)).to.eventually.equal(visibility === "visible");
-    });
-
-    Then(/^the "([^"].*)" card's (title|image|LEARN MORE button) is clicked$/, (text, click) => {
-        switch(click) {
-            case "title": 
-                return ProgramCatalog.clickOnCardTitle(text);
-            case "image":
-                return ProgramCatalog.clickOnCardImage(text);
-            case "LEARN MORE button":
-                return ProgramCatalog.clickOnCardLearnMoreButton(text);
-        }
     });
     
     Then(/^the opened page's title should be "([^"].*)"$/, text => {
@@ -115,13 +114,9 @@ defineSupportCode(({
         return expect(ProgramCatalog.isResultsLabelVisible()).to.eventually.be.false;
     });
 
-    Then(/^the "([^"].*)" skill is selected$/, text => {
-        return ProgramCatalog.selectSkill(text);
-    });
-
     Then(/^the selected filters field should contain the following filters:$/, filters => {
         let filterArray = convertDataTable(filters);
-        return expect(ProgramCatalog.allSelectedFilters()).to.eventually.eql(filterArray);
+        return expect(ProgramCatalog.getAllSelectedFiltersText()).to.eventually.eql(filterArray);
     });
 
     Then(/^the dropdown title should contain the following filters:$/, filters => {
