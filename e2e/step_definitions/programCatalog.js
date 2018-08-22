@@ -6,11 +6,11 @@ const {
 const ProgramCatalog = require('../page_objects/programCatalog');
 
 defineSupportCode(({
-    Given,
-    When,
-    Then,
-    setDefaultTimeout
-}) => {
+                       Given,
+                       When,
+                       Then,
+                       setDefaultTimeout
+                   }) => {
     setDefaultTimeout(GLOBAL_TIMEOUT);
 
     Given(/^the Udacity course page is opened$/, () => {
@@ -45,14 +45,18 @@ defineSupportCode(({
     });
 
     When(/^the "([^"].*)" card's (title|image|LEARN MORE button) is clicked$/, (text, click) => {
-        switch(click) {
-            case "title": 
+        switch (click) {
+            case "title":
                 return ProgramCatalog.clickOnCardTitle(text);
             case "image":
                 return ProgramCatalog.clickOnCardImage(text);
             case "LEARN MORE button":
                 return ProgramCatalog.clickOnCardLearnMoreButton(text);
         }
+    });
+
+    When(/^the "([^"].*)" card's details expander is opened$/, text => {
+        return ProgramCatalog.openShortDescription(text);
     });
 
     Then(/^the Udacity logo should be (visible|hidden)$/, visibility => {
@@ -90,10 +94,6 @@ defineSupportCode(({
         return expect(ProgramCatalog.isCorrectCourseLevelTextVisible(level)).to.eventually.be.true;
     });
 
-    Then(/^the "([^"].*)" card's details expander is opened$/, text => {
-        return ProgramCatalog.openShortDescription(text);
-    });
-
     Then(/^the "([^"].*)" card's short description should be (visible|hidden)$/, (text, visibility) => {
         return expect(ProgramCatalog.isShortDescriptionVisible(text)).to.eventually.equal(visibility === "visible");
     });
@@ -105,7 +105,7 @@ defineSupportCode(({
     Then(/^the "([^"].*)" card's 'LEARN MORE' button should be (visible|hidden)$/, (text, visibility) => {
         return expect(ProgramCatalog.isLearnMoreButtonVisible(text)).to.eventually.equal(visibility === "visible");
     });
-    
+
     Then(/^the opened page's title should be "([^"].*)"$/, text => {
         return expect(ProgramCatalog.getOpenedCourseTitleText(text)).to.eventually.equal(text);
     });

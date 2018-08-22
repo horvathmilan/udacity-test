@@ -38,7 +38,7 @@ class ProgramCatalog {
     }
 
     load() {
-        browser.driver.manage().deleteAllCookies(); 
+        browser.driver.manage().deleteAllCookies();
         browser.get('https://eu.udacity.com/courses/all');
         this.waitForLogo();
         this.bannerCloseButton.click();
@@ -219,15 +219,15 @@ class ProgramCatalog {
         });
     }
 
-    isSkillsCoveredSectionContainsTheFilters(filters) { 
+    isSkillsCoveredSectionContainsTheFilters(filters) {
         return this.cards.then(cards => {
-            return Promise.all(cards.map (card => {
+            return Promise.all(cards.map(card => {
                 return this.skillsCoveredSection(card).getText();
             })).then(result => {
                 return result.every(element => {
                     let array = deleteCommas(element);
-                    for (let i=0; i<filters.length; i++){
-                        if (array.indexOf(filters[i]) > -1){
+                    for (let i = 0; i < filters.length; i++) {
+                        if (array.indexOf(filters[i]) > -1) {
                             return true;
                         }
                     }
