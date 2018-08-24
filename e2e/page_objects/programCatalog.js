@@ -141,14 +141,14 @@ class ProgramCatalog {
         return this.isShortDescriptionVisible(text).then(visible => {
             if (!visible) {
                 this.blueExpander(text).click();
-                return this.waitForBlueExpander(text);
+                return this.waitForLearnMoreButton(text);
             }
         });
     }
 
-    waitForBlueExpander(text) {
+    waitForLearnMoreButton(text) {
         return browser.wait(() => {
-            return this.isShortDescriptionVisible(text);
+            return this.isLearnMoreButtonVisible(text);
         });
     }
 
