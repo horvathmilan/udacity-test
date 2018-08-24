@@ -13,7 +13,7 @@ exports.config = {
     directConnect: true,
     cucumberOpts: {
         require: ['step_definitions/**/*.js'],
-        tags: ['~@wip'],
+        tags: ['~@wip','@current'],
         format: ['pretty', 'json:cucumber.json']
     },
     framework: 'custom',

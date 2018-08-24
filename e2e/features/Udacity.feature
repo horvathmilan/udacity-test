@@ -1,3 +1,4 @@
+@current
 Feature: Browsing the Udacity program catalog
   As a user
   I want to search in the Udacity program catalog

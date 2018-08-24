@@ -18,7 +18,7 @@ class ProgramCatalog {
 
         this.filterBox = text => element(by.cssContainingText('.multiselect-dropdown', text));
         this.filterOption = text => element(by.cssContainingText('.multiselect-item-checkbox', text));
-        this.card = text => element(by.cssContainingText('ir-catlog-card div.card-wrapper', text));
+        this.card = text => element(by.cssContainingText('ir-catalog-card div.card-wrapper', text));
         this.openedCourseTitle = text => element(by.cssContainingText('.hero__course--title', text));
         this.filters = text => element(by.cssContainingText('.selected-filters', text));
 
